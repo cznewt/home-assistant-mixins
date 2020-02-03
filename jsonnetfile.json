@@ -1,0 +1,24 @@
+{
+    "dependencies": [
+        {
+            "name": "esphome-libsonnet",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/cznewt/esphome-libsonnet",
+                    "subdir": "esphome-libsonnet"
+                }
+            },
+            "version": "master"
+        },
+        {
+            "name": "home-assistant-libsonnet",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/cznewt/home-assistant-libsonnet",
+                    "subdir": "home-assistant-libsonnet"
+                }
+            },
+            "version": "master"
+        }
+    ]
+}

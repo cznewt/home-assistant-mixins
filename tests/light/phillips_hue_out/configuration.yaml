@@ -1,0 +1,177 @@
+automation:
+- action:
+  - delay: 00:00:05
+  - data_template:
+      entity_id: input_number.light_phillips_hue_color_brightness
+      value: '{{ state_attr(''light.livingroom'', ''brightness'') }}
+
+        '
+    service: input_number.set_value
+  trigger:
+    event: start
+    platform: homeassistant
+- action:
+    entity_id: script.light_phillips_hue_color_scene_set
+    service: script.toggle
+  condition:
+    condition: template
+    value_template: '{{ state_attr(''light.livingroom'', ''brightness'')|int != states.input_number.livingroom_lights_brightness.state|int
+      }}
+
+      '
+  trigger:
+    entity_id: input_number.light_phillips_hue_color_brightness
+    platform: state
+- action:
+    data_template:
+      entity_id: input_number.light_phillips_hue_color_brightness
+      value: '{{ trigger.to_state.attributes.brightness }}
+
+        '
+    service: input_number.set_value
+  trigger:
+    entity_id: light.livingroom
+    platform: state
+- action:
+    entity_id: script.light_phillips_hue_color_scene_set
+    service: script.toggle
+  trigger:
+    entity_id: input_select.light_phillips_hue_color_scenes
+    platform: state
+binary_sensor:
+- platform: template
+  sensors:
+    light_phillips_hue_color_power_state:
+      entity_id:
+      - light.livingroom
+      value_template: '{{ states("light.livingroom") }}
+
+        '
+frontend: {}
+homeassistant:
+  customize:
+    automation.light_phillips_hue_color_brightness_init:
+      friendly_name: Init Brightness
+    automation.light_phillips_hue_color_brightness_set:
+      friendly_name: Set Brightness
+    automation.light_phillips_hue_color_brightness_update:
+      friendly_name: Update Brightness
+    automation.light_phillips_hue_color_scene_set:
+      friendly_name: Set Scene
+    binary_sensor.light_phillips_hue_color_power_state:
+      device_class: power
+      friendly_name: Power State
+    input_number.light_phillips_hue_color_brightness:
+      friendly_name: Set Brightness
+    input_select.light_phillips_hue_color_scenes:
+      friendly_name: Select Scene
+    script.light_phillips_hue_color_brightness_down:
+      friendly_name: Lower Brightness
+    script.light_phillips_hue_color_brightness_set:
+      friendly_name: Set Brightness
+    script.light_phillips_hue_color_brightness_up:
+      friendly_name: Raise Brightness
+    script.light_phillips_hue_color_scene_set:
+      friendly_name: Set Scene
+    script.light_phillips_hue_color_turn_off:
+      friendly_name: Turn Off
+    sensor.light_phillips_hue_color_brightness:
+      friendly_name: Brigtness
+      unit_of_measurement: '%'
+    sensor.light_phillips_hue_color_scene:
+      friendly_name: Scene
+  name: Phillips Hue Lights
+hue:
+  bridges:
+  - allow_hue_groups: true
+    allow_unreachable: true
+    host: <<host/ip>>
+input_number:
+  light_phillips_hue_color_brightness:
+    initial: 128
+    max: 254
+    min: 1
+    step: 1
+input_select:
+  light_phillips_hue_color_scenes:
+    options:
+    - Bright
+    - Relax
+    - Arctic aurora
+    - Savanna sunset
+    - Nightlight
+    - Dimmed
+    - Read
+lovelace:
+  mode: yaml
+script:
+  light_phillips_hue_color_brightness_down:
+    sequence:
+    - data_template:
+        brightness: '{% set suggested = states.light.livingroom.attributes.brightness|int
+          - 32 %}
+
+          {% if suggested > 0 %}
+
+          {{ suggested }}
+
+          {% else %}1
+
+          {% endif %}
+
+          '
+      entity_id: light.livingroom
+      service: light.turn_on
+  light_phillips_hue_color_brightness_set:
+    sequence:
+    - data_template:
+        brightness: '{{ states.input_number.light_phillips_hue_color_brightness.state|int
+          }}
+
+          '
+      entity_id: light.livingroom
+      service: light.turn_on
+  light_phillips_hue_color_brightness_up:
+    sequence:
+    - data_template:
+        brightness: '{% set suggested = states.light.livingroom.attributes.brightness|int
+          + 32 %}
+
+          {% if suggested < 254 %}{{ suggested }}
+
+          {% else %}254{% endif %}
+
+          '
+      entity_id: light.livingroom
+      service: light.turn_on
+  light_phillips_hue_color_scene_set:
+    sequence:
+    - data_template:
+        group_name: livingroom
+        scene_name: '{{ states.input_number.light_phillips_hue_color_scenes.state
+          }}
+
+          '
+      service: hue.hue_activate_scene
+  light_phillips_hue_color_turn_off:
+    sequence:
+    - entity_id: light.livingroom
+      service: light.turn_off
+sensor:
+- platform: template
+  sensors:
+    light_phillips_hue_color_brightness:
+      entity_id:
+      - light.livingroom
+      icon_template: mdi:lightbulb
+      value_template: '{{ states("input_number.light_phillips_hue_color_brightness")|int
+        / 256 }}
+
+        '
+    light_phillips_hue_color_scene:
+      entity_id:
+      - light.livingroom
+      icon_template: mdi:lightbulb
+      value_template: '{{ states("input_select.light_phillips_hue_color_scenes") }}
+
+        '

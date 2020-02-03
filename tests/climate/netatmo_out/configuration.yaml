@@ -1,0 +1,14 @@
+climate:
+- platform: netatmo
+frontend: {}
+homeassistant:
+  customize:
+    climate.climate_netatmo_climate: {}
+  name: Climate
+lovelace:
+  mode: yaml
+netatmo:
+  api_key: <<api_key>>
+  password: <<password>>
+  secret_key: <<api_key>>
+  username: <<username>>

@@ -1,0 +1,11 @@
+device_tracker:
+- password: <<password>>
+  platform: tile
+  show_inactive: false
+  username: <<username>>
+frontend: {}
+homeassistant:
+  customize:
+    device_tracker.presence_tile_tracker:
+      friendly_name: Tile Tracker
+  name: Tile Presence Tracker

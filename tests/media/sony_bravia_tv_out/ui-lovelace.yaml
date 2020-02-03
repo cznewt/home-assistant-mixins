@@ -1,0 +1,30 @@
+title: Sony Bravia TV
+views:
+- cards:
+  - entities:
+    - input_select.media_sony_bravia_tv_sources
+    - input_number.media_sony_bravia_tv_volume
+    - script.media_sony_bravia_tv_source_set
+    - script.media_sony_bravia_tv_volume_down
+    - script.media_sony_bravia_tv_volume_up
+    - script.media_sony_bravia_tv_volume_set
+    - script.media_sony_bravia_tv_power_on
+    - script.media_sony_bravia_tv_power_off
+    - automation.media_sony_bravia_tv_volume_init
+    - automation.media_sony_bravia_tv_volume_update
+    show_header_toggle: false
+    title: TV / Control
+    type: entities
+  - entities:
+    - binary_sensor.media_sony_bravia_tv_power_state
+    - sensor.media_sony_bravia_tv_source
+    - sensor.media_sony_bravia_tv_volume
+    show_header_toggle: false
+    title: TV / Status
+    type: entities
+  - entities:
+    - media_player.sony_bravia_tv
+    show_header_toggle: false
+    title: TV / Entities
+    type: entities
+  title: TV

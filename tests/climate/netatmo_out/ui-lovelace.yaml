@@ -1,0 +1,16 @@
+title: Climate
+views:
+- cards:
+  - entities: []
+    show_header_toggle: false
+    title: Netatmo Climate / Control
+    type: entities
+  - entities: []
+    show_header_toggle: false
+    title: Netatmo Climate / Status
+    type: entities
+  - entities: []
+    show_header_toggle: false
+    title: Netatmo Climate / Entities
+    type: entities
+  title: Netatmo Climate

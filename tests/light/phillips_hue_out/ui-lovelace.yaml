@@ -1,0 +1,31 @@
+title: Phillips Hue Lights
+views:
+- cards:
+  - entities:
+    - input_select.light_phillips_hue_color_scenes
+    - input_number.light_phillips_hue_color_brightness
+    - script.light_phillips_hue_color_scene_set
+    - script.light_phillips_hue_color_brightness_down
+    - script.light_phillips_hue_color_brightness_up
+    - script.light_phillips_hue_color_brightness_set
+    - script.light_phillips_hue_color_turn_off
+    - automation.light_phillips_hue_color_scene_set
+    - automation.light_phillips_hue_color_brightness_init
+    - automation.light_phillips_hue_color_brightness_update
+    - automation.light_phillips_hue_color_brightness_set
+    show_header_toggle: false
+    title: Lights / Control
+    type: entities
+  - entities:
+    - binary_sensor.light_phillips_hue_color_power_state
+    - sensor.light_phillips_hue_color_scene
+    - sensor.light_phillips_hue_color_brightness
+    show_header_toggle: false
+    title: Lights / Status
+    type: entities
+  - entities:
+    - light.livingroom
+    show_header_toggle: false
+    title: Lights / Entities
+    type: entities
+  title: Lights

@@ -1,0 +1,79 @@
+frontend: {}
+homeassistant:
+  customize:
+    input_number.climate_sensor_humidity:
+      friendly_name: Humidity
+    input_number.climate_sensor_temperature_afternoon:
+      device_class: temperature
+      friendly_name: Afternoon Temperature
+    input_number.climate_sensor_temperature_evening:
+      device_class: temperature
+      friendly_name: Evening Temperature
+    input_number.climate_sensor_temperature_morning:
+      device_class: temperature
+      friendly_name: Morning Temperature
+    input_number.climate_sensor_temperature_night:
+      device_class: temperature
+      friendly_name: Night Temperature
+    input_number.climate_sensor_temperature_noon:
+      device_class: temperature
+      friendly_name: Noon Temperature
+    sensor.climate_sensor_actual_humidity:
+      device_class: temperature
+      friendly_name: Humidity Actual
+    sensor.climate_sensor_actual_temperature:
+      device_class: temperature
+      friendly_name: Temperature Actual
+  name: Xiaomi Aqara Climate Sensor (Temperature, Humidity)
+input_number:
+  climate_sensor_humidity:
+    initial: 50
+    max: 80
+    min: 20
+    step: 1
+  climate_sensor_temperature_afternoon:
+    initial: 21.5
+    max: 45
+    min: 7
+    step: 0.1
+  climate_sensor_temperature_evening:
+    initial: 21
+    max: 45
+    min: 7
+    step: 0.1
+  climate_sensor_temperature_morning:
+    initial: 21.5
+    max: 45
+    min: 7
+    step: 0.1
+  climate_sensor_temperature_night:
+    initial: 19
+    max: 45
+    min: 7
+    step: 0.1
+  climate_sensor_temperature_noon:
+    initial: 21
+    max: 45
+    min: 7
+    step: 0.1
+lovelace:
+  mode: yaml
+sensor:
+- platform: template
+  sensors:
+    climate_sensor_actual_humidity:
+      entity_id:
+      - sensor.humidity_id
+      value_template: '{{ states("input_select.sensor.humidity_id_scenes") }}
+
+        '
+    climate_sensor_actual_temperature:
+      entity_id:
+      - sensor.temperature_id
+      value_template: '{{ states("input_select.sensor.temperature_id_scenes") }}
+
+        '
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+  - key: <<key>>

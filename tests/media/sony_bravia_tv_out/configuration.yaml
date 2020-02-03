@@ -1,0 +1,135 @@
+automation:
+- action:
+    data_template:
+      entity_id: input_number.livingroom_tv_volume
+      value: '{{ state_attr(''media_player.sony_bravia_tv'', ''volume_level'') }}'
+    service: input_number.set_value
+  trigger:
+    event: start
+    platform: homeassistant
+- action:
+    data_template:
+      entity_id: input_number.livingroom_tv_volume
+      value: '{{ trigger.to_state.attributes.volume_level }}'
+    service: input_number.set_value
+  trigger:
+    entity_id: media_player.sony_bravia_tv
+    platform: state
+binary_sensor:
+- platform: template
+  sensors:
+    media_sony_bravia_tv_power_state:
+      entity_id:
+      - media_player.sony_bravia_tv
+      value_template: '{{ state_attr(''media_player.sony_bravia_tv'', ''power_state'')
+        }}
+
+        '
+frontend: {}
+homeassistant:
+  customize:
+    automation.media_sony_bravia_tv_volume_init:
+      friendly_name: Init Volume
+    automation.media_sony_bravia_tv_volume_update:
+      friendly_name: Update Volume
+    binary_sensor.media_sony_bravia_tv_power_state:
+      device_class: power
+      friendly_name: Power State
+    input_number.media_sony_bravia_tv_volume:
+      friendly_name: Set Volume
+    input_select.media_sony_bravia_tv_sources:
+      friendly_name: Select Source
+    media_player.sony_bravia_tv: {}
+    script.media_sony_bravia_tv_power_off:
+      friendly_name: Power Off
+    script.media_sony_bravia_tv_power_on:
+      friendly_name: Power On
+    script.media_sony_bravia_tv_source_set:
+      friendly_name: Set Source
+    script.media_sony_bravia_tv_volume_down:
+      friendly_name: Volume Down
+    script.media_sony_bravia_tv_volume_mute:
+      friendly_name: Volume Mute
+    script.media_sony_bravia_tv_volume_set:
+      friendly_name: Set Volume
+    script.media_sony_bravia_tv_volume_up:
+      friendly_name: Volume Up
+    sensor.media_sony_bravia_tv_source:
+      friendly_name: Source
+    sensor.media_sony_bravia_tv_volume:
+      friendly_name: Volume
+  name: Sony Bravia TV
+input_number:
+  media_sony_bravia_tv_volume:
+    initial: 0.05
+    max: 0.5
+    min: 0
+    step: 0.01
+input_select:
+  media_sony_bravia_tv_sources:
+    initial: CT 1 HD
+    options:
+    - CT 1 HD
+    - CT 2 HD
+    - CT 24 HD
+    - CT :D HD / CT art HD
+    - Nova HD
+lovelace:
+  mode: yaml
+media_player:
+- host: <<host/ip>>
+  platform: braviatv
+script:
+  media_sony_bravia_tv_power_off:
+    sequence:
+    - entity_id: media_player.sony_bravia_tv
+      service: media_player.turn_off
+  media_sony_bravia_tv_power_on:
+    sequence:
+    - entity_id: media_player.sony_bravia_tv
+      service: media_player.turn_on
+  media_sony_bravia_tv_source_set:
+    sequence:
+    - data_template:
+        source: '{{ states.input_select.livingroom_tv_sources.state }}'
+      entity_id: media_player.sony_bravia_tv
+      service: media_player.select_source
+  media_sony_bravia_tv_volume_down:
+    sequence:
+    - entity_id: media_player.sony_bravia_tv
+      service: media_player.volume_down
+  media_sony_bravia_tv_volume_mute:
+    sequence:
+    - data:
+        is_volume_muted: true
+      entity_id: media_player.sony_bravia_tv
+      service: media_player.volume_mute
+  media_sony_bravia_tv_volume_set:
+    sequence:
+    - data_template:
+        volume_level: '{{ states.input_number.livingroom_tv_volume.state|float }}'
+      entity_id: media_player.sony_bravia_tv
+      service: media_player.volume_set
+  media_sony_bravia_tv_volume_up:
+    sequence:
+    - entity_id: media_player.sony_bravia_tv
+      service: media_player.volume_up
+sensor:
+- platform: template
+  sensors:
+    media_sony_bravia_tv_source:
+      entity_id:
+      - media_player.sony_bravia_tv
+      icon_template: mdi:lightbulb
+      value_template: '{{ state_attr(''media_player.sony_bravia_tv'', ''media_content_id'')
+        }}
+
+        '
+    media_sony_bravia_tv_volume:
+      entity_id:
+      - media_player.sony_bravia_tv
+      icon_template: mdi:lightbulb
+      value_template: '{{ state_attr(''media_player.sony_bravia_tv'', ''volume_level'')
+        }}
+
+        '

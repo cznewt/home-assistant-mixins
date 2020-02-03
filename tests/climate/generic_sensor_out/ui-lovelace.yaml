@@ -1,0 +1,30 @@
+title: Xiaomi Aqara Climate Sensor (Temperature, Humidity)
+views:
+- cards:
+  - entities:
+    - input_number.climate_sensor_temperature_morning
+    - input_number.climate_sensor_temperature_noon
+    - input_number.climate_sensor_temperature_afternoon
+    - input_number.climate_sensor_temperature_evening
+    - input_number.climate_sensor_temperature_night
+    - input_number.climate_sensor_humidity
+    show_header_toggle: false
+    title: Room Climate / Control
+    type: entities
+  - entities:
+    - sensor.climate_sensor_actual_humidity
+    - sensor.climate_sensor_actual_temperature
+    - sensor.climate_sensor_model_low_humidity
+    - sensor.climate_sensor_model_low_temperature
+    - sensor.climate_sensor_model_high_humidity
+    - sensor.climate_sensor_model_high_temperature
+    show_header_toggle: false
+    title: Room Climate / Status
+    type: entities
+  - entities:
+    - sensor.humidity_id
+    - sensor.temperature_id
+    show_header_toggle: false
+    title: Room Climate / Entities
+    type: entities
+  title: Room Climate
