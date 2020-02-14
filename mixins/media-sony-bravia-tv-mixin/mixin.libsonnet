@@ -1,4 +1,4 @@
 (import 'config.libsonnet') +
 (import 'component.libsonnet') +
-(import 'dashboards.libsonnet') +
-(import 'entities.libsonnet')
+(import 'dashboard.libsonnet') +
+(import 'entity.libsonnet')
