@@ -1,6 +1,9 @@
-local entities = (import 'entities.libsonnet');
+local entity = (import 'entity.libsonnet');
 
 {
-  _config+: {
+  _config+:: {
+    entity+: {
+      presence_nmap_entities: entity.presence_nmap_entities,
+    },
   },
 }

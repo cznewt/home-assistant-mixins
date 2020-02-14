@@ -1,2 +1,2 @@
 (import 'config.libsonnet') +
-(import 'entities.libsonnet')
+(import 'entity.libsonnet')

@@ -7,9 +7,9 @@ A set of configuration snippets for Home Assistant.
 
 ## Releases
 
-| Release | Home Assistant   | 
-| ------- | ---------------- |
-| master  | 0.104            |
+| Release | Home Assistant   | ESPHome   |
+| ------- | ---------------- | --------- |
+| master  | 0.104+           | 1.14+     |
 
 ## How to use
 
@@ -31,7 +31,7 @@ Grab the mixins and its dependencies:
 ```
 $ git clone https://github.com/cznewt/home-assistant-mixins
 $ cd home-assistant-mixins
-$ jb install
+$ make init
 ```
 
 Build the mixin:
